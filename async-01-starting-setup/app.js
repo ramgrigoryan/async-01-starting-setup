@@ -8,7 +8,7 @@ const currentLocation = (optn) => {
         resolve(success);
       },
       (error) => {
-        resolve(success);
+        reject(error);
       },
       optn
     );
@@ -26,14 +26,10 @@ const setTimer = (duration) => {
   return promise;
 };
 
-function trackUserHandler() {
-  let position;
-  currentLocation().then((data) => {
-    position = data;
-    return setTimer(2000);
-  }).then(data=>{
-    console.log(data,position);
-  });
+async function trackUserHandler() {
+  let posData= await currentLocation()
+  let timer = await setTimer(2000);
+  console.log(posData,timer);
   console.log("Clicked!");
 }
 
